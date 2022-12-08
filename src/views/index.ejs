@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>Check out our inventory.</p>
+    <div class="inventory--container">
+      <h4>Here are some fruits we have available...</h1>
+        <ul class="fruits--container">
+          <% for(var i=0; i<fruits.length; i++) {%>
+             <li class="fruit">
+                <div><%= fruits[i].name %></div>
+                <div><%= fruits[i].desc %></div>
+                <div><%= fruits[i].price %></div>
+                <div>Quantity: <%= fruits[i].number_in_stock %></div>
+              </li>
+          <% } %>
+        </ul>
+      <h4>Here are some vegetables we have available...</h1>
+        <ul class="veggie--container">
+          <% for(var i=0; i<veggies.length; i++) {%>
+            <li class="veggie">
+              <div><%= veggies[i].name %></div>
+              <div><%= veggies[i].desc %></div>
+              <div><%= veggies[i].price %></div>
+              <div>Quantity: <%= veggies[i].number_in_stock %></div>
+            </li>
+          <% } %>
+        </ul>
+    </div>
+  </body>
+</html>
