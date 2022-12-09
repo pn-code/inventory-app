@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
-const Fruit = require('../models/fruit');
-const Vegetable = require('../models/veggie');
+const Item = require('../models/item');
+
 
 const getIndexController = async function (req, res) {
-    const fruitsArr = await Fruit.find({})
-    const veggieArr = await Vegetable.find({})
-    res.render("index", { title: "Fruits 'n Veggies", fruits: fruitsArr, veggies: veggieArr });
+    const itemArr = await Item.find({})
+    res.render("index", { title: "Fruits 'n Veggies", items: itemArr });
 };
 
 module.exports = getIndexController;

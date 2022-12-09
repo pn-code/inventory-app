@@ -1,13 +1,12 @@
 #! /usr/bin/env node
-require('dotenv').config()
+require("dotenv").config();
 console.log("This script populates our db with information");
 
 // Get arguments passed on command line
 var userArgs = process.argv.slice(2);
 var async = require("async");
 
-const Fruit = require("./src/models/fruit");
-const Veggie = require("./src/models/veggie");
+const Item = require("./src/models/item");
 const mongoDB = process.env.MONGO_URL;
 
 var mongoose = require("mongoose");
@@ -16,141 +15,138 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-const veggies = [];
-const fruits = [];
+const items = [];
 
-function fruitCreate(name, desc, price, number_in_stock, cb) {
-    const fruitDetail = {
+function itemCreate(name, desc, category, price, number_in_stock, cb) {
+    const itemDetail = {
         name,
         desc,
-        category: "fruit",
+        category,
         price,
         number_in_stock,
     };
 
-    const fruit = new Fruit(fruitDetail);
+    const item = new Item(itemDetail);
 
-    fruit.save(function (err) {
+    item.save(function (err) {
         if (err) {
             cb(err, null);
             return;
         }
-        console.log("New Fruit: " + fruit);
-        fruits.push(fruit);
-        cb(null, fruit);
+        console.log("New item: " + item);
+        items.push(item);
+        cb(null, item);
     });
 }
 
-function veggieCreate(name, desc, price, number_in_stock, cb) {
-    const veggieDetail = {
-        name,
-        desc,
-        category: "vegetable",
-        price,
-        number_in_stock,
-    };
-
-    const veggie = new Veggie(veggieDetail);
-
-    veggie.save(function (err) {
-        if (err) {
-            cb(err, null);
-            return;
-        }
-        console.log("New Veggie: " + veggie);
-        veggies.push(veggie);
-        cb(null, veggie);
-    });
-}
-
-function createFruits(cb) {
+function createItems(cb) {
     async.series(
         [
             function (callback) {
-                fruitCreate(
+                itemCreate(
                     "Orange",
                     "An orange fruit is orange",
+                    "fruit",
                     "$2",
                     52,
                     callback
                 );
             },
             function (callback) {
-                fruitCreate("Lemon", "Life is no lemon", "$5", 20, callback);
+                itemCreate(
+                    "Lemon",
+                    "Life is no lemon",
+                    "fruit",
+                    "$5",
+                    20,
+                    callback
+                );
             },
             function (callback) {
-                fruitCreate(
+                itemCreate(
                     "Pink Guava",
                     "Guava grows on trees",
+                    "fruit",
                     "$12",
                     2,
                     callback
                 );
             },
             function (callback) {
-                fruitCreate("Apples", "The basic fruit", "$1", 63, callback);
+                itemCreate(
+                    "Apples",
+                    "The basic fruit",
+                    "fruit",
+                    "$1",
+                    63,
+                    callback
+                );
             },
             function (callback) {
-                fruitCreate(
+                itemCreate(
                     "Tangerines",
                     "The other orange fruit",
+                    "fruit",
                     "$1",
                     32,
                     callback
                 );
             },
             function (callback) {
-                fruitCreate("Limes", "The bitter lemon", "$1", 21, callback);
+                itemCreate(
+                    "Limes",
+                    "The bitter lemon",
+                    "fruit",
+                    "$1",
+                    21,
+                    callback
+                );
             },
-        ],
-        // optional callback
-        cb
-    );
-}
-
-function createVeggies(cb) {
-    async.parallel(
-        [
             function (callback) {
-                veggieCreate(
+                itemCreate(
                     "Carrot",
                     "An orange root veggie",
+                    "vegetable",
                     "$1",
                     100,
                     callback
                 );
             },
             function (callback) {
-                veggieCreate(
+                itemCreate(
                     "Brocolli",
                     "A common cruciferous veggie",
+                    "vegetable",
                     "$1",
                     1000,
                     callback
                 );
             },
             function (callback) {
-                veggieCreate(
+                itemCreate(
                     "Beet",
                     "This veggie gets beet by its parents",
+                    "vegetable",
                     "$1",
                     100,
                     callback
                 );
             },
             function (callback) {
-                veggieCreate(
+                itemCreate(
                     "Garlic",
                     "The most potent veggie",
+                    "vegetable",
                     "$1",
                     100,
                     callback
                 );
             },
             function (callback) {
-                veggieCreate(
+                itemCreate(
                     "Green Peas",
                     "This veggie is pea green",
+                    "vegetable",
                     "$1",
                     100,
                     callback
@@ -163,7 +159,7 @@ function createVeggies(cb) {
 }
 
 async.series(
-    [createFruits, createVeggies],
+    [createItems],
     // Optional callback
     function (err, results) {
         if (err) {

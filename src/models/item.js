@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const VeggieSchema = new Schema({
+const ItemSchema = new Schema({
     name: { type: String, required: true, maxLength: 100 },
     desc: { type: String, required: true, maxLength: 100 },
     category: { type: String, required: true, maxLength: 100 },
@@ -11,4 +11,4 @@ const VeggieSchema = new Schema({
 })
 
 // Export model
-module.exports = mongoose.model("Vegetable", VeggieSchema);
+module.exports = mongoose.model("Item", ItemSchema);
