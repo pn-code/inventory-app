@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %>></title>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <form action="" method="post">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required>
+        <label for="desc">Description</label>
+        <input id="desc" name="desc" type="text" required>
+        <label for="category">Category</label>
+        <select name="category" id="category" required>
+            <option value="">Select an option</option>
+            <option value="fruit">fruit</option>
+            <option value="vegetable">vegetable</option>
+        </select>
+        <label for="price">Price Per Unit</label>
+        <input id="price" name="price" type="number" required>
+        <label for="number_in_stock">Number in Stock</label>
+        <input id="number_in_stock" name="number_in_stock" type="number" required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
