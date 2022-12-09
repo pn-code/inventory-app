@@ -29,9 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up router
 const indexRouter = require("./src/routes/index")
-const itemRouter = require("./src/routes/item")
 app.use('/', indexRouter);
-app.use('/item', itemRouter);
+
 
 // Set up
 app.use(function(req, res, next) {
