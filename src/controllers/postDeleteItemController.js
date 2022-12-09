@@ -1,5 +1,3 @@
-const express = require("express");
-const app = express();
 const Item = require("../models/item");
 
 const postDeleteItemController = async function (req, res) {
